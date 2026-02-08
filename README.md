@@ -1,47 +1,81 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/nunomaduro/skeleton-php/master/docs/example.png" height="300" alt="Skeleton Php">
+    <img src="https://raw.githubusercontent.com/shipfastlabs/agent-detector/master/docs/og.png" height="300" alt="Agent Detector">
     <p align="center">
-        <a href="https://github.com/nunomaduro/skeleton-php/actions"><img alt="GitHub Workflow Status (master)" src="https://github.com/nunomaduro/skeleton-php/actions/workflows/tests.yml/badge.svg"></a>
-        <a href="https://packagist.org/packages/nunomaduro/skeleton-php"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/nunomaduro/skeleton-php"></a>
-        <a href="https://packagist.org/packages/nunomaduro/skeleton-php"><img alt="Latest Version" src="https://img.shields.io/packagist/v/nunomaduro/skeleton-php"></a>
-        <a href="https://packagist.org/packages/nunomaduro/skeleton-php"><img alt="License" src="https://img.shields.io/packagist/l/nunomaduro/skeleton-php"></a>
+        <a href="https://github.com/shipfastlabs/agent-detector/actions"><img alt="GitHub Workflow Status (master)" src="https://github.com/shipfastlabs/agent-detector/actions/workflows/tests.yml/badge.svg"></a>
+        <a href="https://packagist.org/packages/shipfastlabs/agent-detector"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/shipfastlabs/agent-detector"></a>
+        <a href="https://packagist.org/packages/shipfastlabs/agent-detector"><img alt="Latest Version" src="https://img.shields.io/packagist/v/shipfastlabs/agent-detector"></a>
+        <a href="https://packagist.org/packages/shipfastlabs/agent-detector"><img alt="License" src="https://img.shields.io/packagist/l/shipfastlabs/agent-detector"></a>
     </p>
 </p>
 
 ------
-This package provides a wonderful **PHP Skeleton** to start building your next package idea.
 
-> **Requires [PHP 8.4+](https://php.net/releases/)**
+A lightweight PHP utility to detect if your code is running inside an AI agent or automated development environment. PHP port of [`@anthropic-ai/detect-agent`](https://www.npmjs.com/package/@anthropic-ai/detect-agent).
 
-⚡️ Create your package using [Composer](https://getcomposer.org):
+> **Requires [PHP 8.2+](https://php.net/releases/)**
+
+## Installation
 
 ```bash
-composer create-project nunomaduro/skeleton-php --prefer-source --remove-vcs PackageName
+composer require shipfastlabs/agent-detector
 ```
 
-🧹 Keep a modern codebase with **Pint**:
+## Usage
+
+```php
+use AgentDetector\AgentDetector;
+
+$result = AgentDetector::detect();
+
+if ($result->isAgent) {
+    echo "Running inside: {$result->name}";
+}
+
+// Check for a specific known agent
+if ($result->knownAgent() === \AgentDetector\KnownAgent::Claude) {
+    echo "Hello from Claude!";
+}
+```
+
+Or use the standalone function:
+
+```php
+use function AgentDetector\detectAgent;
+
+$result = detectAgent();
+```
+
+## Supported Agents
+
+| Agent | Detection Method |
+|-------|-----------------|
+| Custom | `AI_AGENT` env var |
+| Cursor | `CURSOR_TRACE_ID` env var |
+| Cursor CLI | `CURSOR_AGENT` env var |
+| Gemini | `GEMINI_CLI` env var |
+| Codex | `CODEX_SANDBOX` env var |
+| Augment CLI | `AUGMENT_AGENT` env var |
+| Opencode | `OPENCODE_CLIENT` env var |
+| Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
+| Replit | `REPL_ID` env var |
+| Devin | `/opt/.devin` file exists |
+
+### Custom Agent
+
+Set the `AI_AGENT` environment variable to any value to identify your custom agent:
+
 ```bash
-composer lint
+AI_AGENT=my-custom-agent php your-script.php
 ```
 
-✅ Run refactors using **Rector**
-```bash
-composer refactor
-```
+## Contributing
 
-⚗️ Run static analysis using **PHPStan**:
-```bash
-composer test:types
-```
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to contribute, including adding support for new agents.
 
-✅ Run unit tests using **PEST**
-```bash
-composer test:unit
-```
+## Testing
 
-🚀 Run the entire test suite:
 ```bash
 composer test
 ```
 
-**Skeleton PHP** was created by **[Nuno Maduro](https://x.com/enunomaduro)** under the **[MIT license](https://opensource.org/licenses/MIT)**.
+**Agent Detector** was created by **[Pushpak Chhajed](https://github.com/pushpak1300)** under the **[MIT license](https://opensource.org/licenses/MIT)**.

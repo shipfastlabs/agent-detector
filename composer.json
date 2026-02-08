@@ -1,16 +1,16 @@
 {
-    "name": "nunomaduro/skeleton-php",
-    "description": "A skeleton repository for my packages",
-    "keywords": ["php", "skeleton", "package"],
+    "name": "shipfastlabs/agent-detector",
+    "description": "Detect if code is running in an AI agent or automated development environment",
+    "keywords": ["php", "ai", "agent", "detection", "cursor", "claude", "devin", "automation"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Pushpak Chahjed",
+            "email": "pushpak1300@gmail.com"
         }
     ],
     "require": {
-        "php": "^8.4.0"
+        "php": "^8.2.0"
     },
     "require-dev": {
         "laravel/pint": "^1.24.0",
@@ -23,13 +23,19 @@
     },
     "autoload": {
         "psr-4": {
-            "NunoMaduro\\SkeletonPhp\\": "src/"
-        }
+            "AgentDetector\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/Overrides.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -45,3 +45,11 @@ Unit tests:
 ```bash
 composer test:unit
 ```
+
+## Adding a New Agent
+
+To add detection for a new agent:
+
+1. Add a new case to the `KnownAgent` enum in `src/KnownAgent.php`
+2. Add the detection logic (env var check or file check) in `AgentDetector::detect()` in `src/AgentDetector.php` — order matters, earlier checks take priority
+3. Add tests in `tests/AgentDetectorTest.php`
