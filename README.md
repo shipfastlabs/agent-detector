@@ -10,7 +10,7 @@
 
 ------
 
-A lightweight PHP utility to detect if your code is running inside an AI agent or automated development environment. PHP port of [`@anthropic-ai/detect-agent`](https://www.npmjs.com/package/@anthropic-ai/detect-agent).
+A lightweight PHP utility to detect if your code is running inside an AI agent or automated development environment.
 
 > **Requires [PHP 8.2+](https://php.net/releases/)**
 
