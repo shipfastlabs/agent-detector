@@ -1,5 +1,5 @@
 <p align="center">
-    ![Agent Detector OG Image](docs/og.png)
+    <img src="docs/og.png" height="300" alt="Agent Detector" />
     <p align="center">
         <a href="https://github.com/shipfastlabs/agent-detector/actions"><img alt="GitHub Workflow Status (master)" src="https://github.com/shipfastlabs/agent-detector/actions/workflows/tests.yml/badge.svg"></a>
         <a href="https://packagist.org/packages/shipfastlabs/agent-detector"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/shipfastlabs/agent-detector"></a>
