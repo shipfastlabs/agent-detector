@@ -33,7 +33,7 @@ final class AgentDetector
             return new AgentResult(true, 'augment-cli');
         }
 
-        if (getenv('OPENCODE_CLIENT') !== false) {
+        if (getenv('OPENCODE_CLIENT') !== false || getenv('OPENCODE') !== false) {
             return new AgentResult(true, 'opencode');
         }
 
