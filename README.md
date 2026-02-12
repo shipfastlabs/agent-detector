@@ -55,7 +55,7 @@ $result = detectAgent();
 | Gemini | `GEMINI_CLI` env var |
 | Codex | `CODEX_SANDBOX` env var |
 | Augment CLI | `AUGMENT_AGENT` env var |
-| Opencode | `OPENCODE_CLIENT` env var |
+| Opencode | `OPENCODE_CLIENT` or `OPENCODE` env var |
 | Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
 | Replit | `REPL_ID` env var |
 | Devin | `/opt/.devin` file exists |
