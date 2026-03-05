@@ -25,7 +25,7 @@ final class AgentDetector
             return new AgentResult(true, 'gemini');
         }
 
-        if (getenv('CODEX_SANDBOX') !== false) {
+        if (getenv('CODEX_SANDBOX') !== false || getenv('CODEX_THREAD_ID') !== false) {
             return new AgentResult(true, 'codex');
         }
 
@@ -35,6 +35,10 @@ final class AgentDetector
 
         if (getenv('OPENCODE_CLIENT') !== false || getenv('OPENCODE') !== false) {
             return new AgentResult(true, 'opencode');
+        }
+
+        if (getenv('AMP_CURRENT_THREAD_ID') !== false) {
+            return new AgentResult(true, 'amp');
         }
 
         if (getenv('CLAUDECODE') !== false || getenv('CLAUDE_CODE') !== false) {

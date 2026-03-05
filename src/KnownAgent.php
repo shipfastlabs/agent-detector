@@ -15,4 +15,5 @@ enum KnownAgent: string
     case Codex = 'codex';
     case AugmentCli = 'augment-cli';
     case Opencode = 'opencode';
+    case Amp = 'amp';
 }

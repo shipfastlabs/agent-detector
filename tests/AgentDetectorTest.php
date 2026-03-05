@@ -14,8 +14,11 @@ beforeEach(function (): void {
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
+        'CODEX_THREAD_ID',
         'AUGMENT_AGENT',
         'OPENCODE_CLIENT',
+        'OPENCODE',
+        'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
         'REPL_ID',
@@ -33,8 +36,11 @@ afterEach(function (): void {
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
+        'CODEX_THREAD_ID',
         'AUGMENT_AGENT',
         'OPENCODE_CLIENT',
+        'OPENCODE',
+        'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
         'REPL_ID',
@@ -104,6 +110,16 @@ it('detects codex via CODEX_SANDBOX', function (): void {
         ->and($result->knownAgent())->toBe(KnownAgent::Codex);
 });
 
+it('detects codex via CODEX_THREAD_ID', function (): void {
+    putenv('CODEX_THREAD_ID=some-thread-id');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('codex')
+        ->and($result->knownAgent())->toBe(KnownAgent::Codex);
+});
+
 it('detects augment-cli via AUGMENT_AGENT', function (): void {
     putenv('AUGMENT_AGENT=true');
 
@@ -122,6 +138,26 @@ it('detects opencode via OPENCODE_CLIENT', function (): void {
     expect($result->isAgent)->toBeTrue()
         ->and($result->name)->toBe('opencode')
         ->and($result->knownAgent())->toBe(KnownAgent::Opencode);
+});
+
+it('detects opencode via OPENCODE', function (): void {
+    putenv('OPENCODE=true');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('opencode')
+        ->and($result->knownAgent())->toBe(KnownAgent::Opencode);
+});
+
+it('detects amp via AMP_CURRENT_THREAD_ID', function (): void {
+    putenv('AMP_CURRENT_THREAD_ID=some-thread-id');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('amp')
+        ->and($result->knownAgent())->toBe(KnownAgent::Amp);
 });
 
 it('detects claude via CLAUDECODE', function (): void {
@@ -265,6 +301,7 @@ it('returns correct enum for known agents', function (string $envVar, string $en
     'codex' => ['CODEX_SANDBOX', 'true', KnownAgent::Codex],
     'augment-cli' => ['AUGMENT_AGENT', 'true', KnownAgent::AugmentCli],
     'opencode' => ['OPENCODE_CLIENT', 'true', KnownAgent::Opencode],
+    'amp' => ['AMP_CURRENT_THREAD_ID', 'thread-id', KnownAgent::Amp],
     'claude' => ['CLAUDECODE', '1', KnownAgent::Claude],
     'replit' => ['REPL_ID', 'id', KnownAgent::Replit],
 ]);
