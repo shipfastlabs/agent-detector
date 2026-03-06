@@ -9,44 +9,29 @@ final class AgentDetector
     public static function detect(): AgentResult
     {
         $aiAgent = getenv('AI_AGENT');
+
         if (is_string($aiAgent) && trim($aiAgent) !== '') {
             return new AgentResult(true, trim($aiAgent));
         }
 
-        if (getenv('CURSOR_TRACE_ID') !== false) {
-            return new AgentResult(true, 'cursor');
-        }
+        $agentsWithEnvVars = [
+            'cursor' => ['CURSOR_TRACE_ID'],
+            'cursor-cli' => ['CURSOR_AGENT'],
+            'gemini' => ['GEMINI_CLI'],
+            'codex' => ['CODEX_SANDBOX', 'CODEX_THREAD_ID'],
+            'augment-cli' => ['AUGMENT_AGENT'],
+            'opencode' => ['OPENCODE_CLIENT', 'OPENCODE'],
+            'amp' => ['AMP_CURRENT_THREAD_ID'],
+            'claude' => ['CLAUDECODE', 'CLAUDE_CODE'],
+            'replit' => ['REPL_ID'],
+        ];
 
-        if (getenv('CURSOR_AGENT') !== false) {
-            return new AgentResult(true, 'cursor-cli');
-        }
-
-        if (getenv('GEMINI_CLI') !== false) {
-            return new AgentResult(true, 'gemini');
-        }
-
-        if (getenv('CODEX_SANDBOX') !== false || getenv('CODEX_THREAD_ID') !== false) {
-            return new AgentResult(true, 'codex');
-        }
-
-        if (getenv('AUGMENT_AGENT') !== false) {
-            return new AgentResult(true, 'augment-cli');
-        }
-
-        if (getenv('OPENCODE_CLIENT') !== false || getenv('OPENCODE') !== false) {
-            return new AgentResult(true, 'opencode');
-        }
-
-        if (getenv('AMP_CURRENT_THREAD_ID') !== false) {
-            return new AgentResult(true, 'amp');
-        }
-
-        if (getenv('CLAUDECODE') !== false || getenv('CLAUDE_CODE') !== false) {
-            return new AgentResult(true, 'claude');
-        }
-
-        if (getenv('REPL_ID') !== false) {
-            return new AgentResult(true, 'replit');
+        foreach ($agentsWithEnvVars as $agent => $envVars) {
+            foreach ($envVars as $envVar) {
+                if (getenv($envVar) !== false) {
+                    return new AgentResult(true, $agent);
+                }
+            }
         }
 
         if (file_exists('/opt/.devin')) {
