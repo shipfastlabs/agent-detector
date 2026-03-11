@@ -53,8 +53,9 @@ $result = detectAgent();
 | Cursor | `CURSOR_TRACE_ID` env var |
 | Cursor CLI | `CURSOR_AGENT` env var |
 | Gemini | `GEMINI_CLI` env var |
-| Codex | `CODEX_SANDBOX` env var |
+| Codex | `CODEX_SANDBOX` or `CODEX_THREAD_ID` env var |
 | Augment CLI | `AUGMENT_AGENT` env var |
+| AMP | `AMP_CURRENT_THREAD_ID` env var |
 | Opencode | `OPENCODE_CLIENT` or `OPENCODE` env var |
 | Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
 | Replit | `REPL_ID` env var |
