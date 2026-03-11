@@ -7,7 +7,6 @@ namespace AgentDetector;
 enum KnownAgent: string
 {
     case Cursor = 'cursor';
-    case CursorCli = 'cursor-cli';
     case Claude = 'claude';
     case Devin = 'devin';
     case Replit = 'replit';
