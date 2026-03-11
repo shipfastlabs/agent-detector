@@ -10,7 +10,6 @@ use function AgentDetector\detectAgent;
 beforeEach(function (): void {
     foreach ([
         'AI_AGENT',
-        'CURSOR_TRACE_ID',
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
@@ -32,7 +31,6 @@ beforeEach(function (): void {
 afterEach(function (): void {
     foreach ([
         'AI_AGENT',
-        'CURSOR_TRACE_ID',
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
@@ -70,24 +68,14 @@ it('does not detect an agent when AI_AGENT is not set', function (): void {
 });
 
 // Known agent env var detection
-it('detects cursor via CURSOR_TRACE_ID', function (): void {
-    putenv('CURSOR_TRACE_ID=some-trace-id');
+it('detects cursor via CURSOR_AGENT', function (): void {
+    putenv('CURSOR_AGENT=1');
 
     $result = AgentDetector::detect();
 
     expect($result->isAgent)->toBeTrue()
         ->and($result->name)->toBe('cursor')
         ->and($result->knownAgent())->toBe(KnownAgent::Cursor);
-});
-
-it('detects cursor-cli via CURSOR_AGENT', function (): void {
-    putenv('CURSOR_AGENT=true');
-
-    $result = AgentDetector::detect();
-
-    expect($result->isAgent)->toBeTrue()
-        ->and($result->name)->toBe('cursor-cli')
-        ->and($result->knownAgent())->toBe(KnownAgent::CursorCli);
 });
 
 it('detects gemini via GEMINI_CLI', function (): void {
@@ -235,7 +223,7 @@ it('prioritizes CURSOR_AGENT over CLAUDECODE', function (): void {
 
     $result = AgentDetector::detect();
 
-    expect($result->name)->toBe('cursor-cli');
+    expect($result->name)->toBe('cursor');
 });
 
 it('prioritizes CLAUDECODE over REPL_ID', function (): void {
@@ -295,8 +283,7 @@ it('returns correct enum for known agents', function (string $envVar, string $en
 
     expect($result->knownAgent())->toBe($expected);
 })->with([
-    'cursor' => ['CURSOR_TRACE_ID', 'trace', KnownAgent::Cursor],
-    'cursor-cli' => ['CURSOR_AGENT', 'true', KnownAgent::CursorCli],
+    'cursor' => ['CURSOR_AGENT', '1', KnownAgent::Cursor],
     'gemini' => ['GEMINI_CLI', 'true', KnownAgent::Gemini],
     'codex' => ['CODEX_SANDBOX', 'true', KnownAgent::Codex],
     'augment-cli' => ['AUGMENT_AGENT', 'true', KnownAgent::AugmentCli],
@@ -316,7 +303,7 @@ it('returns null knownAgent for custom agent', function (): void {
 
 // Standalone function
 it('works via standalone detectAgent function', function (): void {
-    putenv('CURSOR_TRACE_ID=trace');
+    putenv('CURSOR_AGENT=1');
 
     $result = detectAgent();
 

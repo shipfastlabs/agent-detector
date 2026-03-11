@@ -50,8 +50,7 @@ $result = detectAgent();
 | Agent | Detection Method |
 |-------|-----------------|
 | Custom | `AI_AGENT` env var |
-| Cursor | `CURSOR_TRACE_ID` env var |
-| Cursor CLI | `CURSOR_AGENT` env var |
+| Cursor | `CURSOR_AGENT` env var |
 | Gemini | `GEMINI_CLI` env var |
 | Codex | `CODEX_SANDBOX` or `CODEX_THREAD_ID` env var |
 | Augment CLI | `AUGMENT_AGENT` env var |
