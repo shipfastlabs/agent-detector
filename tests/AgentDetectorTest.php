@@ -20,6 +20,7 @@ beforeEach(function (): void {
         'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
+        'COPILOT_CLI',
         'REPL_ID',
     ] as $var) {
         putenv($var);
@@ -41,6 +42,7 @@ afterEach(function (): void {
         'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
+        'COPILOT_CLI',
         'REPL_ID',
     ] as $var) {
         putenv($var);
@@ -168,6 +170,16 @@ it('detects claude via CLAUDE_CODE', function (): void {
         ->and($result->knownAgent())->toBe(KnownAgent::Claude);
 });
 
+it('detects copilot via COPILOT_CLI', function (): void {
+    putenv('COPILOT_CLI=1');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('copilot')
+        ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
+});
+
 it('detects replit via REPL_ID', function (): void {
     putenv('REPL_ID=some-repl-id');
 
@@ -289,6 +301,7 @@ it('returns correct enum for known agents', function (string $envVar, string $en
     'augment-cli' => ['AUGMENT_AGENT', 'true', KnownAgent::AugmentCli],
     'opencode' => ['OPENCODE_CLIENT', 'true', KnownAgent::Opencode],
     'amp' => ['AMP_CURRENT_THREAD_ID', 'thread-id', KnownAgent::Amp],
+    'copilot' => ['COPILOT_CLI', '1', KnownAgent::Copilot],
     'claude' => ['CLAUDECODE', '1', KnownAgent::Claude],
     'replit' => ['REPL_ID', 'id', KnownAgent::Replit],
 ]);

@@ -57,6 +57,7 @@ $result = detectAgent();
 | AMP | `AMP_CURRENT_THREAD_ID` env var |
 | Opencode | `OPENCODE_CLIENT` or `OPENCODE` env var |
 | Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
+| Copilot | `COPILOT_CLI` env var |
 | Replit | `REPL_ID` env var |
 | Devin | `/opt/.devin` file exists |
 

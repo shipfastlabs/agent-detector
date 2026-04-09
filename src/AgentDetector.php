@@ -23,6 +23,7 @@ final class AgentDetector
             'amp' => ['AMP_CURRENT_THREAD_ID'],
             'claude' => ['CLAUDECODE', 'CLAUDE_CODE'],
             'replit' => ['REPL_ID'],
+            'copilot' => ['COPILOT_CLI'],
         ];
 
         foreach ($agentsWithEnvVars as $agent => $envVars) {
