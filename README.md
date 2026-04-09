@@ -60,6 +60,7 @@ $result = detectAgent();
 | Copilot | `COPILOT_CLI` env var |
 | Replit | `REPL_ID` env var |
 | Devin | `/opt/.devin` file exists |
+| Antigravity | `ANTIGRAVITY_AGENT` env var |
 
 ### Custom Agent
 

@@ -16,4 +16,5 @@ enum KnownAgent: string
     case Opencode = 'opencode';
     case Amp = 'amp';
     case Copilot = 'copilot';
+    case Antigravity = 'antigravity';
 }

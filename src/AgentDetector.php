@@ -24,6 +24,7 @@ final class AgentDetector
             'claude' => ['CLAUDECODE', 'CLAUDE_CODE'],
             'replit' => ['REPL_ID'],
             'copilot' => ['COPILOT_CLI'],
+            'antigravity' => ['ANTIGRAVITY_AGENT'],
         ];
 
         foreach ($agentsWithEnvVars as $agent => $envVars) {
