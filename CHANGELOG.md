@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.2 - 2026-04-09
+
+### What's Changed
+
+* Add Antigravity detection by [@clesecq](https://github.com/clesecq) in https://github.com/shipfastlabs/agent-detector/pull/6
+
+### New Contributors
+
+* [@clesecq](https://github.com/clesecq) made their first contribution in https://github.com/shipfastlabs/agent-detector/pull/6
+
+**Full Changelog**: https://github.com/shipfastlabs/agent-detector/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2026-04-09
 
 ### What's Changed
