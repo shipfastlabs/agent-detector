@@ -25,6 +25,7 @@ final class AgentDetector
             'replit' => ['REPL_ID'],
             'copilot' => ['COPILOT_CLI'],
             'antigravity' => ['ANTIGRAVITY_AGENT'],
+            'pi' => ['PI_CODING_AGENT'],
         ];
 
         foreach ($agentsWithEnvVars as $agent => $envVars) {
