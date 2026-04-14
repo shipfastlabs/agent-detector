@@ -23,6 +23,7 @@ beforeEach(function (): void {
         'COPILOT_CLI',
         'REPL_ID',
         'ANTIGRAVITY_AGENT',
+        'PI_CODING_AGENT',
     ] as $var) {
         putenv($var);
     }
@@ -46,6 +47,7 @@ afterEach(function (): void {
         'COPILOT_CLI',
         'REPL_ID',
         'ANTIGRAVITY_AGENT',
+        'PI_CODING_AGENT',
     ] as $var) {
         putenv($var);
     }
@@ -202,6 +204,16 @@ it('detects antigravity via ANTIGRAVITY_AGENT', function (): void {
         ->and($result->knownAgent())->toBe(KnownAgent::Antigravity);
 });
 
+it('detects pi via PI_CODING_AGENT', function (): void {
+    putenv('PI_CODING_AGENT=true');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('pi')
+        ->and($result->knownAgent())->toBe(KnownAgent::Pi);
+});
+
 // Devin detection via file_exists mock
 it('detects devin via /opt/.devin file', function (): void {
     $GLOBALS['__mock_file_exists'] = fn (string $path): bool => $path === '/opt/.devin';
@@ -317,6 +329,7 @@ it('returns correct enum for known agents', function (string $envVar, string $en
     'claude' => ['CLAUDECODE', '1', KnownAgent::Claude],
     'replit' => ['REPL_ID', 'id', KnownAgent::Replit],
     'antigravity' => ['ANTIGRAVITY_AGENT', '1', KnownAgent::Antigravity],
+    'pi' => ['PI_CODING_AGENT', 'true', KnownAgent::Pi],
 ]);
 
 it('returns null knownAgent for custom agent', function (): void {
