@@ -15,7 +15,7 @@ final class AgentDetector
         }
 
         $agentsWithEnvVars = [
-            'cursor' => ['CURSOR_AGENT'],
+            'cursor' => ['CURSOR_TRACE_ID', 'CURSOR_AGENT'],
             'gemini' => ['GEMINI_CLI'],
             'codex' => ['CODEX_SANDBOX', 'CODEX_THREAD_ID'],
             'augment-cli' => ['AUGMENT_AGENT'],

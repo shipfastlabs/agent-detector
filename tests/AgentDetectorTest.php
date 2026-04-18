@@ -10,6 +10,7 @@ use function AgentDetector\detectAgent;
 beforeEach(function (): void {
     foreach ([
         'AI_AGENT',
+        'CURSOR_TRACE_ID',
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
@@ -34,6 +35,7 @@ beforeEach(function (): void {
 afterEach(function (): void {
     foreach ([
         'AI_AGENT',
+        'CURSOR_TRACE_ID',
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
@@ -76,6 +78,16 @@ it('does not detect an agent when AI_AGENT is not set', function (): void {
 // Known agent env var detection
 it('detects cursor via CURSOR_AGENT', function (): void {
     putenv('CURSOR_AGENT=1');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('cursor')
+        ->and($result->knownAgent())->toBe(KnownAgent::Cursor);
+});
+
+it('detects cursor via CURSOR_TRACE_ID', function (): void {
+    putenv('CURSOR_TRACE_ID=trace');
 
     $result = AgentDetector::detect();
 
