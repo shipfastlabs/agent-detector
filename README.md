@@ -29,11 +29,22 @@ $result = AgentDetector::detect();
 
 if ($result->isAgent) {
     echo "Running inside: {$result->name}";
+    // e.g. "claude", "cursor", "codex"
 }
 
 // Check for a specific known agent
 if ($result->knownAgent() === \AgentDetector\KnownAgent::Claude) {
     echo "Hello from Claude!";
+}
+
+// Get a human-readable display name
+if ($agent = $result->knownAgent()) {
+    echo $agent->displayName(); // "Claude Code", "GitHub Copilot", "Gemini CLI", ...
+}
+
+// Get the session ID (where available)
+if ($result->sessionId !== null) {
+    echo "Session: {$result->sessionId}"; // e.g. CODEX_THREAD_ID or AMP_CURRENT_THREAD_ID value
 }
 ```
 
@@ -47,21 +58,21 @@ $result = detectAgent();
 
 ## Supported Agents
 
-| Agent | Detection Method |
-|-------|-----------------|
-| Custom | `AI_AGENT` env var |
-| Cursor | `CURSOR_AGENT` env var |
-| Gemini | `GEMINI_CLI` env var |
-| Codex | `CODEX_SANDBOX` or `CODEX_THREAD_ID` env var |
-| Augment CLI | `AUGMENT_AGENT` env var |
-| AMP | `AMP_CURRENT_THREAD_ID` env var |
-| Opencode | `OPENCODE_CLIENT` or `OPENCODE` env var |
-| Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
-| Copilot | `COPILOT_CLI` env var |
-| Replit | `REPL_ID` env var |
-| Devin | `/opt/.devin` file exists |
-| Antigravity | `ANTIGRAVITY_AGENT` env var |
-| Pi | `PI_CODING_AGENT` env var |
+| Agent | Display Name | Detection Method | Session ID |
+|-------|-------------|-----------------|------------|
+| Custom | _(raw value)_ | `AI_AGENT` env var | — |
+| Cursor | Cursor | `CURSOR_AGENT` env var | — |
+| Gemini | Gemini CLI | `GEMINI_CLI` env var | — |
+| Codex | Codex | `CODEX_SANDBOX` or `CODEX_THREAD_ID` env var | `CODEX_THREAD_ID` |
+| Augment CLI | Augment CLI | `AUGMENT_AGENT` env var | — |
+| Amp | Amp | `AMP_CURRENT_THREAD_ID` env var | `AMP_CURRENT_THREAD_ID` |
+| Opencode | OpenCode | `OPENCODE_CLIENT` or `OPENCODE` env var | — |
+| Claude | Claude Code | `CLAUDECODE` or `CLAUDE_CODE` env var | `CLAUDE_CODE_SESSION_ID` _(if set)_ |
+| Copilot | GitHub Copilot | `COPILOT_CLI` env var | — |
+| Replit | Replit | `REPL_ID` env var | — |
+| Devin | Devin | `/opt/.devin` file exists | — |
+| Antigravity | Antigravity | `ANTIGRAVITY_AGENT` env var | — |
+| Pi | Pi | `PI_CODING_AGENT` env var | — |
 
 ### Custom Agent
 
