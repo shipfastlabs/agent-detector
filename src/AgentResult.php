@@ -9,6 +9,7 @@ final readonly class AgentResult
     public function __construct(
         public bool $isAgent,
         public ?string $name = null,
+        public ?string $sessionId = null,
     ) {
     }
 
