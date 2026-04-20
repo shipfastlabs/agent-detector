@@ -26,6 +26,7 @@ final class AgentDetector
             'copilot' => ['COPILOT_CLI'],
             'antigravity' => ['ANTIGRAVITY_AGENT'],
             'pi' => ['PI_CODING_AGENT'],
+            'kiro-cli' => ['KIRO_AGENT_PATH'],
         ];
 
         foreach ($agentsWithEnvVars as $agent => $envVars) {
@@ -34,6 +35,12 @@ final class AgentDetector
                     return new AgentResult(true, $agent);
                 }
             }
+        }
+
+        $termProgram = getenv('TERM_PROGRAM');
+
+        if (is_string($termProgram) && strtolower($termProgram) === 'kiro') {
+            return new AgentResult(true, 'kiro');
         }
 
         if (file_exists('/opt/.devin')) {
