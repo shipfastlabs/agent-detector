@@ -25,7 +25,6 @@ beforeEach(function (): void {
         'ANTIGRAVITY_AGENT',
         'PI_CODING_AGENT',
         'KIRO_AGENT_PATH',
-        'TERM_PROGRAM',
     ] as $var) {
         putenv($var);
     }
@@ -51,7 +50,6 @@ afterEach(function (): void {
         'ANTIGRAVITY_AGENT',
         'PI_CODING_AGENT',
         'KIRO_AGENT_PATH',
-        'TERM_PROGRAM',
     ] as $var) {
         putenv($var);
     }
@@ -226,18 +224,6 @@ it('detects kiro-cli via KIRO_AGENT_PATH', function (): void {
     expect($result->isAgent)->toBeTrue()
         ->and($result->name)->toBe('kiro-cli')
         ->and($result->knownAgent())->toBe(KnownAgent::KiroCli);
-});
-
-it('detects kiro via TERM_PROGRAM', function (): void {
-    putenv('TERM_PROGRAM=kiro');
-
-    $GLOBALS['__mock_file_exists'] = fn (string $path): bool => false;
-
-    $result = AgentDetector::detect();
-
-    expect($result->isAgent)->toBeTrue()
-        ->and($result->name)->toBe('kiro')
-        ->and($result->knownAgent())->toBe(KnownAgent::Kiro);
 });
 
 // Devin detection via file_exists mock

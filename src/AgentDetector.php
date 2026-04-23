@@ -37,12 +37,6 @@ final class AgentDetector
             }
         }
 
-        $termProgram = getenv('TERM_PROGRAM');
-
-        if (is_string($termProgram) && strtolower($termProgram) === 'kiro') {
-            return new AgentResult(true, 'kiro');
-        }
-
         if (file_exists('/opt/.devin')) {
             return new AgentResult(true, 'devin');
         }
