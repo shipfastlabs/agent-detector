@@ -438,3 +438,39 @@ it('returns correct display names for all known agents', function (KnownAgent $a
     'antigravity' => [KnownAgent::Antigravity,  'Antigravity'],
     'pi'          => [KnownAgent::Pi,           'Pi'],
 ]);
+
+// AgentResult serialization compatibility
+it('unserializes a pre-sessionId payload without erroring', function (): void {
+    // Serialized form of an AgentResult from before the sessionId field existed
+    // (default property-based serialization with only isAgent + name).
+    $legacyPayload = 'O:25:"AgentDetector\AgentResult":2:{s:7:"isAgent";b:1;s:4:"name";s:5:"codex";}';
+
+    $result = unserialize($legacyPayload);
+
+    expect($result)->toBeInstanceOf(\AgentDetector\AgentResult::class)
+        ->and($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('codex')
+        ->and($result->sessionId)->toBeNull();
+});
+
+it('round-trips serialize/unserialize with sessionId set', function (): void {
+    $original = new \AgentDetector\AgentResult(true, 'codex', 'thread-abc');
+
+    $restored = unserialize(serialize($original));
+
+    expect($restored->isAgent)->toBeTrue()
+        ->and($restored->name)->toBe('codex')
+        ->and($restored->sessionId)->toBe('thread-abc');
+});
+
+it('excludes sessionId from default JSON encoding', function (): void {
+    $result = new \AgentDetector\AgentResult(true, 'codex', 'thread-abc');
+
+    expect(json_encode($result))->toBe('{"isAgent":true,"name":"codex"}');
+});
+
+it('json-encodes a null-agent result without sessionId', function (): void {
+    $result = new \AgentDetector\AgentResult(false);
+
+    expect(json_encode($result))->toBe('{"isAgent":false,"name":null}');
+});
