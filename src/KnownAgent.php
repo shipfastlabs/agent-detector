@@ -18,6 +18,7 @@ enum KnownAgent: string
     case Copilot = 'copilot';
     case Antigravity = 'antigravity';
     case Pi = 'pi';
+    case KiroCli = 'kiro-cli';
 
     public function displayName(): string
     {
@@ -34,6 +35,7 @@ enum KnownAgent: string
             self::Copilot     => 'GitHub Copilot',
             self::Antigravity => 'Antigravity',
             self::Pi          => 'Pi',
+            self::KiroCli     => 'Kiro CLI',
         };
     }
 }

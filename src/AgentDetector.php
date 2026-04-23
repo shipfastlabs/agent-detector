@@ -26,6 +26,7 @@ final class AgentDetector
             'copilot' => ['COPILOT_CLI'],
             'antigravity' => ['ANTIGRAVITY_AGENT'],
             'pi' => ['PI_CODING_AGENT'],
+            'kiro-cli' => ['KIRO_AGENT_PATH'],
         ];
 
         foreach ($agentsWithEnvVars as $agent => $envVars) {

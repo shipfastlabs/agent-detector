@@ -73,6 +73,7 @@ $result = detectAgent();
 | Devin | Devin | `/opt/.devin` file exists | — |
 | Antigravity | Antigravity | `ANTIGRAVITY_AGENT` env var | — |
 | Pi | Pi | `PI_CODING_AGENT` env var | — |
+| Kiro CLI | Kiro CLI | `KIRO_AGENT_PATH` env var | — |
 
 ### Custom Agent
 
