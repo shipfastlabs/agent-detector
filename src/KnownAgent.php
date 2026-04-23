@@ -18,4 +18,5 @@ enum KnownAgent: string
     case Copilot = 'copilot';
     case Antigravity = 'antigravity';
     case Pi = 'pi';
+    case KiroCli = 'kiro-cli';
 }
