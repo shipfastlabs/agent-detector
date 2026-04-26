@@ -25,7 +25,7 @@ final class AgentDetector
         $agentsWithEnvVars = [
             'cursor' => ['CURSOR_AGENT'],
             'gemini' => ['GEMINI_CLI'],
-            'codex' => ['CODEX_SANDBOX', 'CODEX_THREAD_ID'],
+            'codex' => ['CODEX_SANDBOX', 'CODEX_CI', 'CODEX_THREAD_ID'],
             'augment-cli' => ['AUGMENT_AGENT'],
             'opencode' => ['OPENCODE_CLIENT', 'OPENCODE'],
             'amp' => ['AMP_CURRENT_THREAD_ID'],
@@ -40,6 +40,10 @@ final class AgentDetector
         foreach ($agentsWithEnvVars as $agent => $envVars) {
             foreach ($envVars as $envVar) {
                 if (getenv($envVar) !== false) {
+                    if ($agent === 'claude' && getenv('CLAUDE_CODE_IS_COWORK') !== false) {
+                        return new AgentResult(true, 'cowork');
+                    }
+
                     return new AgentResult(true, $agent);
                 }
             }

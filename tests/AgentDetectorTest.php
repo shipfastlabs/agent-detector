@@ -13,6 +13,7 @@ beforeEach(function (): void {
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
+        'CODEX_CI',
         'CODEX_THREAD_ID',
         'AUGMENT_AGENT',
         'OPENCODE_CLIENT',
@@ -20,6 +21,7 @@ beforeEach(function (): void {
         'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
+        'CLAUDE_CODE_IS_COWORK',
         'COPILOT_MODEL',
         'COPILOT_ALLOW_ALL',
         'COPILOT_GITHUB_TOKEN',
@@ -41,6 +43,7 @@ afterEach(function (): void {
         'CURSOR_AGENT',
         'GEMINI_CLI',
         'CODEX_SANDBOX',
+        'CODEX_CI',
         'CODEX_THREAD_ID',
         'AUGMENT_AGENT',
         'OPENCODE_CLIENT',
@@ -48,6 +51,7 @@ afterEach(function (): void {
         'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
+        'CLAUDE_CODE_IS_COWORK',
         'COPILOT_MODEL',
         'COPILOT_ALLOW_ALL',
         'COPILOT_GITHUB_TOKEN',
@@ -94,6 +98,16 @@ it('detects copilot via AI_AGENT github-copilot-cli', function (): void {
         ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
 });
 
+it('detects v0 via AI_AGENT', function (): void {
+    putenv('AI_AGENT=v0');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('v0')
+        ->and($result->knownAgent())->toBe(KnownAgent::V0);
+});
+
 it('does not detect an agent when AI_AGENT is not set', function (): void {
     $result = AgentDetector::detect();
 
@@ -124,6 +138,16 @@ it('detects gemini via GEMINI_CLI', function (): void {
 
 it('detects codex via CODEX_SANDBOX', function (): void {
     putenv('CODEX_SANDBOX=true');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('codex')
+        ->and($result->knownAgent())->toBe(KnownAgent::Codex);
+});
+
+it('detects codex via CODEX_CI', function (): void {
+    putenv('CODEX_CI=true');
 
     $result = AgentDetector::detect();
 
@@ -200,6 +224,28 @@ it('detects claude via CLAUDE_CODE', function (): void {
     expect($result->isAgent)->toBeTrue()
         ->and($result->name)->toBe('claude')
         ->and($result->knownAgent())->toBe(KnownAgent::Claude);
+});
+
+it('detects cowork via Claude Code cowork env vars', function (): void {
+    putenv('CLAUDE_CODE=1');
+    putenv('CLAUDE_CODE_IS_COWORK=1');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('cowork')
+        ->and($result->knownAgent())->toBe(KnownAgent::Cowork);
+});
+
+it('does not detect cowork without Claude Code', function (): void {
+    putenv('CLAUDE_CODE_IS_COWORK=1');
+
+    $GLOBALS['__mock_file_exists'] = fn (string $path): bool => false;
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeFalse()
+        ->and($result->name)->toBeNull();
 });
 
 it('detects copilot via COPILOT_MODEL', function (): void {
@@ -303,22 +349,13 @@ it('does not detect devin when /opt/.devin does not exist', function (): void {
 });
 
 // Priority order
-it('prioritizes AI_AGENT over CURSOR_TRACE_ID', function (): void {
+it('prioritizes AI_AGENT over CURSOR_AGENT', function (): void {
     putenv('AI_AGENT=custom');
-    putenv('CURSOR_TRACE_ID=trace');
-
-    $result = AgentDetector::detect();
-
-    expect($result->name)->toBe('custom');
-});
-
-it('prioritizes CURSOR_TRACE_ID over CURSOR_AGENT', function (): void {
-    putenv('CURSOR_TRACE_ID=trace');
     putenv('CURSOR_AGENT=true');
 
     $result = AgentDetector::detect();
 
-    expect($result->name)->toBe('cursor');
+    expect($result->name)->toBe('custom');
 });
 
 it('prioritizes CURSOR_AGENT over CLAUDECODE', function (): void {
@@ -390,6 +427,8 @@ it('returns correct enum for known agents', function (string $envVar, string $en
     'cursor' => ['CURSOR_AGENT', '1', KnownAgent::Cursor],
     'gemini' => ['GEMINI_CLI', 'true', KnownAgent::Gemini],
     'codex' => ['CODEX_SANDBOX', 'true', KnownAgent::Codex],
+    'codex ci' => ['CODEX_CI', 'true', KnownAgent::Codex],
+    'v0' => ['AI_AGENT', 'v0', KnownAgent::V0],
     'augment-cli' => ['AUGMENT_AGENT', 'true', KnownAgent::AugmentCli],
     'opencode' => ['OPENCODE_CLIENT', 'true', KnownAgent::Opencode],
     'amp' => ['AMP_CURRENT_THREAD_ID', 'thread-id', KnownAgent::Amp],

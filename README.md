@@ -52,17 +52,19 @@ $result = detectAgent();
 | Custom | `AI_AGENT` env var |
 | Cursor | `CURSOR_AGENT` env var |
 | Gemini | `GEMINI_CLI` env var |
-| Codex | `CODEX_SANDBOX` or `CODEX_THREAD_ID` env var |
+| Codex | `CODEX_SANDBOX`, `CODEX_CI`, or `CODEX_THREAD_ID` env var |
 | Augment CLI | `AUGMENT_AGENT` env var |
 | AMP | `AMP_CURRENT_THREAD_ID` env var |
 | Opencode | `OPENCODE_CLIENT` or `OPENCODE` env var |
 | Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
+| Cowork | `CLAUDE_CODE_IS_COWORK` with `CLAUDECODE` or `CLAUDE_CODE` env var |
 | Copilot | `AI_AGENT=github-copilot`, `AI_AGENT=github-copilot-cli`, `COPILOT_MODEL`, `COPILOT_ALLOW_ALL`, `COPILOT_GITHUB_TOKEN`, or `COPILOT_CLI` env var |
 | Replit | `REPL_ID` env var |
 | Devin | `/opt/.devin` file exists |
 | Antigravity | `ANTIGRAVITY_AGENT` env var |
 | Pi | `PI_CODING_AGENT` env var |
 | Kiro CLI | `KIRO_AGENT_PATH` env var |
+| v0 | `AI_AGENT=v0` env var |
 
 ### Custom Agent
 
