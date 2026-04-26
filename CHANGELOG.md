@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.4 - 2026-04-26
+
+### What's Changed
+
+* feat: add Kiro IDE and Kiro CLI agent detection by [@FlorianHyver](https://github.com/FlorianHyver) in https://github.com/shipfastlabs/agent-detector/pull/10
+* Improve GitHub Copilot detection by [@pushpak1300](https://github.com/pushpak1300) in https://github.com/shipfastlabs/agent-detector/pull/11
+* Add v0, Cowork, and CODEX_CI agent detection by [@pushpak1300](https://github.com/pushpak1300) in https://github.com/shipfastlabs/agent-detector/pull/12
+
+### New Contributors
+
+* [@FlorianHyver](https://github.com/FlorianHyver) made their first contribution in https://github.com/shipfastlabs/agent-detector/pull/10
+
+**Full Changelog**: https://github.com/shipfastlabs/agent-detector/compare/v1.1.3...v1.1.4
+
 ## v1.1.3 - 2026-04-14
 
 ### What's Changed
