@@ -8,10 +8,12 @@ enum KnownAgent: string
 {
     case Cursor = 'cursor';
     case Claude = 'claude';
+    case Cowork = 'cowork';
     case Devin = 'devin';
     case Replit = 'replit';
     case Gemini = 'gemini';
     case Codex = 'codex';
+    case V0 = 'v0';
     case AugmentCli = 'augment-cli';
     case Opencode = 'opencode';
     case Amp = 'amp';
