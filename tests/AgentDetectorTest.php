@@ -20,6 +20,9 @@ beforeEach(function (): void {
         'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
+        'COPILOT_MODEL',
+        'COPILOT_ALLOW_ALL',
+        'COPILOT_GITHUB_TOKEN',
         'COPILOT_CLI',
         'REPL_ID',
         'ANTIGRAVITY_AGENT',
@@ -45,6 +48,9 @@ afterEach(function (): void {
         'AMP_CURRENT_THREAD_ID',
         'CLAUDECODE',
         'CLAUDE_CODE',
+        'COPILOT_MODEL',
+        'COPILOT_ALLOW_ALL',
+        'COPILOT_GITHUB_TOKEN',
         'COPILOT_CLI',
         'REPL_ID',
         'ANTIGRAVITY_AGENT',
@@ -66,6 +72,26 @@ it('detects a custom agent via AI_AGENT', function (): void {
     expect($result->isAgent)->toBeTrue()
         ->and($result->name)->toBe('my-custom-agent')
         ->and($result->knownAgent())->toBeNull();
+});
+
+it('detects copilot via AI_AGENT github-copilot', function (): void {
+    putenv('AI_AGENT=github-copilot');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('copilot')
+        ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
+});
+
+it('detects copilot via AI_AGENT github-copilot-cli', function (): void {
+    putenv('AI_AGENT=github-copilot-cli');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('copilot')
+        ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
 });
 
 it('does not detect an agent when AI_AGENT is not set', function (): void {
@@ -174,6 +200,36 @@ it('detects claude via CLAUDE_CODE', function (): void {
     expect($result->isAgent)->toBeTrue()
         ->and($result->name)->toBe('claude')
         ->and($result->knownAgent())->toBe(KnownAgent::Claude);
+});
+
+it('detects copilot via COPILOT_MODEL', function (): void {
+    putenv('COPILOT_MODEL=gpt-5.2');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('copilot')
+        ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
+});
+
+it('detects copilot via COPILOT_ALLOW_ALL', function (): void {
+    putenv('COPILOT_ALLOW_ALL=true');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('copilot')
+        ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
+});
+
+it('detects copilot via COPILOT_GITHUB_TOKEN', function (): void {
+    putenv('COPILOT_GITHUB_TOKEN=token');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('copilot')
+        ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
 });
 
 it('detects copilot via COPILOT_CLI', function (): void {

@@ -57,7 +57,7 @@ $result = detectAgent();
 | AMP | `AMP_CURRENT_THREAD_ID` env var |
 | Opencode | `OPENCODE_CLIENT` or `OPENCODE` env var |
 | Claude | `CLAUDECODE` or `CLAUDE_CODE` env var |
-| Copilot | `COPILOT_CLI` env var |
+| Copilot | `AI_AGENT=github-copilot`, `AI_AGENT=github-copilot-cli`, `COPILOT_MODEL`, `COPILOT_ALLOW_ALL`, `COPILOT_GITHUB_TOKEN`, or `COPILOT_CLI` env var |
 | Replit | `REPL_ID` env var |
 | Devin | `/opt/.devin` file exists |
 | Antigravity | `ANTIGRAVITY_AGENT` env var |
