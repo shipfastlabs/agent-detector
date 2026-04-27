@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AgentDetector;
+namespace Laravel\AgentDetector;
 
 final readonly class AgentResult
 {
     public function __construct(
         public bool $isAgent,
         public ?string $name = null,
-    ) {
-    }
+    ) {}
 
     public function knownAgent(): ?KnownAgent
     {

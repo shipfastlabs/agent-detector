@@ -1,6 +1,10 @@
-name: fix code styling
+name: coding standards
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 permissions:
   contents: write

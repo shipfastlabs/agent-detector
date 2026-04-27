@@ -1,5 +1,5 @@
 {
-    "name": "shipfastlabs/agent-detector",
+    "name": "laravel/agent-detector",
     "description": "Detect if code is running in an AI agent or automated development environment",
     "keywords": [
         "php",
@@ -11,11 +11,16 @@
         "devin",
         "automation"
     ],
+    "homepage": "https://github.com/laravel/agent-detector",
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/laravel/agent-detector/issues",
+        "source": "https://github.com/laravel/agent-detector"
+    },
     "authors": [
         {
-            "name": "Pushpak Chahjed",
-            "email": "pushpak1300@gmail.com"
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
         }
     ],
     "require": {
@@ -31,7 +36,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AgentDetector\\": "src/"
+            "Laravel\\AgentDetector\\": "src/"
         },
         "files": [
             "src/functions.php"
