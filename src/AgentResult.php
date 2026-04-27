@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AgentDetector;
+namespace Laravel\AgentDetector;
 
 final readonly class AgentResult
 {
