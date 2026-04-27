@@ -4,55 +4,80 @@ declare(strict_types=1);
 
 namespace Laravel\AgentDetector;
 
-final class AgentDetector
+class AgentDetector
 {
+    protected const AGENT_ENV_VARS = [
+        'CURSOR_AGENT' => KnownAgent::Cursor,
+        'GEMINI_CLI' => KnownAgent::Gemini,
+        'CODEX_SANDBOX' => KnownAgent::Codex,
+        'CODEX_CI' => KnownAgent::Codex,
+        'CODEX_THREAD_ID' => KnownAgent::Codex,
+        'AUGMENT_AGENT' => KnownAgent::AugmentCli,
+        'OPENCODE_CLIENT' => KnownAgent::Opencode,
+        'OPENCODE' => KnownAgent::Opencode,
+        'AMP_CURRENT_THREAD_ID' => KnownAgent::Amp,
+        'CLAUDECODE' => KnownAgent::Claude,
+        'CLAUDE_CODE' => KnownAgent::Claude,
+        'REPL_ID' => KnownAgent::Replit,
+        'COPILOT_MODEL' => KnownAgent::Copilot,
+        'COPILOT_ALLOW_ALL' => KnownAgent::Copilot,
+        'COPILOT_GITHUB_TOKEN' => KnownAgent::Copilot,
+        'COPILOT_CLI' => KnownAgent::Copilot,
+        'ANTIGRAVITY_AGENT' => KnownAgent::Antigravity,
+        'PI_CODING_AGENT' => KnownAgent::Pi,
+        'KIRO_AGENT_PATH' => KnownAgent::KiroCli,
+    ];
+
     public static function detect(): AgentResult
+    {
+        return self::fromAiAgentEnvVar()
+            ?? self::fromKnownEnvVars()
+            ?? self::fromFileSystem()
+            ?? AgentResult::noAgent();
+    }
+
+    protected static function fromAiAgentEnvVar(): ?AgentResult
     {
         $aiAgent = getenv('AI_AGENT');
 
-        if ($aiAgent !== false) {
-            $aiAgent = trim($aiAgent);
-
-            if (in_array($aiAgent, ['github-copilot', 'github-copilot-cli'], true)) {
-                return new AgentResult(true, 'copilot');
-            }
-
-            if ($aiAgent !== '') {
-                return new AgentResult(true, $aiAgent);
-            }
+        if ($aiAgent === false) {
+            return null;
         }
 
-        $agentsWithEnvVars = [
-            'cursor' => ['CURSOR_AGENT'],
-            'gemini' => ['GEMINI_CLI'],
-            'codex' => ['CODEX_SANDBOX', 'CODEX_CI', 'CODEX_THREAD_ID'],
-            'augment-cli' => ['AUGMENT_AGENT'],
-            'opencode' => ['OPENCODE_CLIENT', 'OPENCODE'],
-            'amp' => ['AMP_CURRENT_THREAD_ID'],
-            'claude' => ['CLAUDECODE', 'CLAUDE_CODE'],
-            'replit' => ['REPL_ID'],
-            'copilot' => ['COPILOT_MODEL', 'COPILOT_ALLOW_ALL', 'COPILOT_GITHUB_TOKEN', 'COPILOT_CLI'],
-            'antigravity' => ['ANTIGRAVITY_AGENT'],
-            'pi' => ['PI_CODING_AGENT'],
-            'kiro-cli' => ['KIRO_AGENT_PATH'],
-        ];
+        $aiAgent = trim($aiAgent);
 
-        foreach ($agentsWithEnvVars as $agent => $envVars) {
-            foreach ($envVars as $envVar) {
-                if (getenv($envVar) !== false) {
-                    if ($agent === 'claude' && getenv('CLAUDE_CODE_IS_COWORK') !== false) {
-                        return new AgentResult(true, 'cowork');
-                    }
-
-                    return new AgentResult(true, $agent);
-                }
-            }
+        if ($aiAgent === '') {
+            return null;
         }
 
+        return AgentResult::forAgent(match ($aiAgent) {
+            'github-copilot', 'github-copilot-cli' => KnownAgent::Copilot,
+            default => $aiAgent,
+        });
+    }
+
+    protected static function fromKnownEnvVars(): ?AgentResult
+    {
+        foreach (self::AGENT_ENV_VARS as $envVar => $agent) {
+            if (getenv($envVar) === false) {
+                continue;
+            }
+
+            return AgentResult::forAgent(match ($agent) {
+                KnownAgent::Claude => getenv('CLAUDE_CODE_IS_COWORK') !== false ? KnownAgent::Cowork : KnownAgent::Claude,
+                default => $agent,
+            });
+        }
+
+        return null;
+    }
+
+    protected static function fromFileSystem(): ?AgentResult
+    {
         if (file_exists('/opt/.devin')) {
-            return new AgentResult(true, 'devin');
+            return AgentResult::forAgent(KnownAgent::Devin);
         }
 
-        return new AgentResult(false);
+        return null;
     }
 }
