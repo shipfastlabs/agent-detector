@@ -95,4 +95,4 @@ Please review [our security policy](.github/SECURITY.md) on how to report securi
 
 ## License
 
-Agent Detector was created by [Pushpak Chhajed](https://github.com/pushpak1300) and is open-sourced software licensed under the [MIT license](LICENSE.md).
+Agent Detector is open-sourced software licensed under the [MIT license](LICENSE.md).
