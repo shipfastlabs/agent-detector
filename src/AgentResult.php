@@ -6,29 +6,25 @@ namespace Laravel\AgentDetector;
 
 class AgentResult
 {
-    public function __construct(
-        public readonly bool $isAgent,
-        public readonly ?string $name = null,
-    ) {
-        //
+    public readonly bool $isAgent;
+
+    public function __construct(public readonly ?string $name = null)
+    {
+        $this->isAgent = $name !== null;
     }
 
     public static function forAgent(string $name): self
     {
-        return new self(true, $name);
+        return new self($name);
     }
 
     public static function noAgent(): self
     {
-        return new self(false);
+        return new self();
     }
 
     public function knownAgent(): ?KnownAgent
     {
-        if ($this->name === null) {
-            return null;
-        }
-
-        return KnownAgent::tryFrom($this->name);
+        return KnownAgent::tryFrom($this->name ?? '');
     }
 }
