@@ -13,9 +13,9 @@ class AgentResult
         $this->isAgent = $name !== null;
     }
 
-    public static function forAgent(string $name): self
+    public static function forAgent(KnownAgent|string $name): self
     {
-        return new self($name);
+        return new self($name instanceof KnownAgent ? $name->value : $name);
     }
 
     public static function noAgent(): self
