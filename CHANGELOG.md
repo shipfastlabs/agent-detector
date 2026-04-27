@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/laravel/agent-detector/compare/v1.1.4...main)
+## [Unreleased](https://github.com/laravel/agent-detector/compare/v2.0.0...main)
+
+## [v2.0.0](https://github.com/laravel/agent-detector/compare/v1.1.4...v2.0.0) - 2026-04-27
+
+### What's Changed
+
+* Repo cleanup after transfer by [@joetannenbaum](https://github.com/joetannenbaum) in https://github.com/laravel/agent-detector/pull/13
+* Cleanup pass on AgentDetector internals by [@joetannenbaum](https://github.com/joetannenbaum) in https://github.com/laravel/agent-detector/pull/14
+
+### Breaking Changes
+
+* Namespace is now `Laravel\AgentDetector` (formerly `AgentDetector`)
+* `AgentResult` constructor now only accepts the `$name` (dropped `isAgent` from constructor, kept it as a public readonly property)
+
+**Full Changelog**: https://github.com/laravel/agent-detector/compare/v1.1.4...v2.0.0
 
 ## [v1.1.4](https://github.com/laravel/agent-detector/compare/v1.1.3...v1.1.4) - 2026-04-26
 
