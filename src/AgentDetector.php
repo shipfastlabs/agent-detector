@@ -38,14 +38,15 @@ class AgentDetector
         }
 
         $aiAgent = trim($aiAgent);
-        $agentName = match ($aiAgent) {
-            'github-copilot', 'github-copilot-cli' => 'copilot',
-            default => $aiAgent,
-        };
 
         if ($aiAgent === '') {
             return null;
         }
+
+        $agentName = match ($aiAgent) {
+            'github-copilot', 'github-copilot-cli' => 'copilot',
+            default => $aiAgent,
+        };
 
         return AgentResult::forAgent($agentName);
     }
