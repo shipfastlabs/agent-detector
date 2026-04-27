@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use AgentDetector\AgentDetector;
-use AgentDetector\KnownAgent;
+use Laravel\AgentDetector\AgentDetector;
+use Laravel\AgentDetector\KnownAgent;
 
-use function AgentDetector\detectAgent;
+use function Laravel\AgentDetector\detectAgent;
 
 beforeEach(function (): void {
     foreach ([

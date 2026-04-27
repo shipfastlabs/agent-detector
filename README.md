@@ -24,7 +24,7 @@ composer require laravel/agent-detector
 ## Usage
 
 ```php
-use AgentDetector\AgentDetector;
+use Laravel\AgentDetector\AgentDetector;
 
 $result = AgentDetector::detect();
 
