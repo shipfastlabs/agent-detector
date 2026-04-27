@@ -64,7 +64,7 @@ class AgentDetector
             }
 
             return AgentResult::forAgent(match ($agent) {
-                KnownAgent::Claude => getenv('CLAUDE_CODE') !== false ? KnownAgent::Claude : KnownAgent::Cowork,
+                KnownAgent::Claude => getenv('CLAUDE_CODE_IS_COWORK') !== false ? KnownAgent::Cowork : KnownAgent::Claude,
                 default => $agent,
             });
         }
