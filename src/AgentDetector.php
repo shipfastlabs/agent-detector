@@ -10,7 +10,7 @@ final class AgentDetector
     {
         $aiAgent = getenv('AI_AGENT');
 
-        if (is_string($aiAgent)) {
+        if ($aiAgent !== false) {
             $aiAgent = trim($aiAgent);
 
             if (in_array($aiAgent, ['github-copilot', 'github-copilot-cli'], true)) {
