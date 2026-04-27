@@ -25,6 +25,7 @@ composer require laravel/agent-detector
 
 ```php
 use Laravel\AgentDetector\AgentDetector;
+use Laravel\AgentDetector\KnownAgent;
 
 $result = AgentDetector::detect();
 
@@ -33,7 +34,7 @@ if ($result->isAgent) {
 }
 
 // Check for a specific known agent
-if ($result->knownAgent() === \AgentDetector\KnownAgent::Claude) {
+if ($result->knownAgent() === KnownAgent::Claude) {
     echo "Hello from Claude!";
 }
 ```
