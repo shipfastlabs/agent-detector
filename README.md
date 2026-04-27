@@ -41,7 +41,7 @@ if ($result->knownAgent() === \AgentDetector\KnownAgent::Claude) {
 Or use the standalone function:
 
 ```php
-use function AgentDetector\detectAgent;
+use function Laravel\AgentDetector\detectAgent;
 
 $result = detectAgent();
 ```
