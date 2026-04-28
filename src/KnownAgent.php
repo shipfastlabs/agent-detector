@@ -21,4 +21,25 @@ enum KnownAgent: string
     case Antigravity = 'antigravity';
     case Pi = 'pi';
     case KiroCli = 'kiro-cli';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Cursor => 'Cursor',
+            self::Claude => 'Claude',
+            self::Cowork => 'Cowork',
+            self::Devin => 'Devin',
+            self::Replit => 'Replit',
+            self::Gemini => 'Gemini',
+            self::Codex => 'Codex',
+            self::V0 => 'V0',
+            self::AugmentCli => 'Augment CLI',
+            self::Opencode => 'Opencode',
+            self::Amp => 'Amp',
+            self::Copilot => 'Copilot',
+            self::Antigravity => 'Antigravity',
+            self::Pi => 'Pi',
+            self::KiroCli => 'Kiro CLI',
+        };
+    }
 }
