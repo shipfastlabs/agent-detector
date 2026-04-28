@@ -6,7 +6,7 @@ namespace Laravel\AgentDetector;
 
 class AgentDetector
 {
-    protected const AGENT_ENV_VARS = [
+    public const AGENT_ENV_VARS = [
         'CURSOR_AGENT' => KnownAgent::Cursor,
         'GEMINI_CLI' => KnownAgent::Gemini,
         'CODEX_SANDBOX' => KnownAgent::Codex,
