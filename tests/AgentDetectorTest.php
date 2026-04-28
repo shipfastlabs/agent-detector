@@ -448,6 +448,27 @@ it('returns null knownAgent for custom agent', function (): void {
     expect($result->knownAgent())->toBeNull();
 });
 
+// Human-friendly labels
+it('returns a human-friendly label for each known agent', function (KnownAgent $agent, string $expected): void {
+    expect($agent->label())->toBe($expected);
+})->with([
+    'cursor' => [KnownAgent::Cursor, 'Cursor'],
+    'claude' => [KnownAgent::Claude, 'Claude'],
+    'cowork' => [KnownAgent::Cowork, 'Cowork'],
+    'devin' => [KnownAgent::Devin, 'Devin'],
+    'replit' => [KnownAgent::Replit, 'Replit'],
+    'gemini' => [KnownAgent::Gemini, 'Gemini'],
+    'codex' => [KnownAgent::Codex, 'Codex'],
+    'v0' => [KnownAgent::V0, 'v0'],
+    'augment-cli' => [KnownAgent::AugmentCli, 'Augment CLI'],
+    'opencode' => [KnownAgent::Opencode, 'Opencode'],
+    'amp' => [KnownAgent::Amp, 'Amp'],
+    'copilot' => [KnownAgent::Copilot, 'Copilot'],
+    'antigravity' => [KnownAgent::Antigravity, 'Antigravity'],
+    'pi' => [KnownAgent::Pi, 'Pi'],
+    'kiro-cli' => [KnownAgent::KiroCli, 'Kiro CLI'],
+]);
+
 // Standalone function
 it('works via standalone detectAgent function', function (): void {
     putenv('CURSOR_AGENT=1');
