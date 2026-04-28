@@ -2,7 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/laravel/agent-detector/compare/v2.0.0...main)
+## [Unreleased](https://github.com/laravel/agent-detector/compare/v2.0.1...main)
+
+## [v2.0.1](https://github.com/laravel/agent-detector/compare/v2.0.0...v2.0.1) - 2026-04-28
+
+### What's Changed
+
+* Add label() method to KnownAgent enum by [@joetannenbaum](https://github.com/joetannenbaum) in https://github.com/laravel/agent-detector/pull/16
+* Make `AgentDetector::AGENT_ENV_VARS` visible by [@cosmastech](https://github.com/cosmastech) in https://github.com/laravel/agent-detector/pull/15
+
+### New Contributors
+
+* [@cosmastech](https://github.com/cosmastech) made their first contribution in https://github.com/laravel/agent-detector/pull/15
+
+**Full Changelog**: https://github.com/laravel/agent-detector/compare/v2.0.0...v2.0.1
 
 ## [v2.0.0](https://github.com/laravel/agent-detector/compare/v1.1.4...v2.0.0) - 2026-04-27
 
