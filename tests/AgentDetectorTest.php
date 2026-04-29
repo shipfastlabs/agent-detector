@@ -98,6 +98,16 @@ it('detects copilot via AI_AGENT github-copilot-cli', function (): void {
         ->and($result->knownAgent())->toBe(KnownAgent::Copilot);
 });
 
+it('detects claude via AI_AGENT claude-code prefix', function (): void {
+    putenv('AI_AGENT=claude-code/2.1.123/agent');
+
+    $result = AgentDetector::detect();
+
+    expect($result->isAgent)->toBeTrue()
+        ->and($result->name)->toBe('claude')
+        ->and($result->knownAgent())->toBe(KnownAgent::Claude);
+});
+
 it('detects v0 via AI_AGENT', function (): void {
     putenv('AI_AGENT=v0');
 
