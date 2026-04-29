@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/laravel/agent-detector/compare/v2.0.1...main)
+## [Unreleased](https://github.com/laravel/agent-detector/compare/v2.0.2...main)
+
+## [v2.0.2](https://github.com/laravel/agent-detector/compare/v2.0.1...v2.0.2) - 2026-04-29
+
+### What's Changed
+
+* [2.x] Detect Claude via AI_AGENT prefix by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/agent-detector/pull/17
+
+### New Contributors
+
+* [@jackbayliss](https://github.com/jackbayliss) made their first contribution in https://github.com/laravel/agent-detector/pull/17
+
+**Full Changelog**: https://github.com/laravel/agent-detector/compare/v2.0.1...v2.0.2
 
 ## [v2.0.1](https://github.com/laravel/agent-detector/compare/v2.0.0...v2.0.1) - 2026-04-28
 
