@@ -50,8 +50,9 @@ class AgentDetector
             return null;
         }
 
-        return AgentResult::forAgent(match ($aiAgent) {
-            'github-copilot', 'github-copilot-cli' => KnownAgent::Copilot,
+        return AgentResult::forAgent(match (true) {
+            in_array($aiAgent, ['github-copilot', 'github-copilot-cli']) => KnownAgent::Copilot,
+            str_starts_with($aiAgent, 'claude-code') => KnownAgent::Claude,
             default => $aiAgent,
         });
     }
